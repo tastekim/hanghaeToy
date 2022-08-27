@@ -19,11 +19,7 @@ def movie_post():
     search_receive = request.form['search_give']
     return jsonify({'msg' : 'POST 완료!'})
 
-@app.route('/favorite', methods=['GET'])
-def favorite_get():
-    return jsonify({'msg' : '찜 목록 GET 완료!'})
-
-@app.route('/favorite', methods=['POST'])
+@app.route('/movie/favorite', methods=['POST'])
 def favorite_post():
     search_receive = request.form['search_give']
     return jsonify({'msg' : '찜 POST 완료!'})
