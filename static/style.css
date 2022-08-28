@@ -88,3 +88,21 @@
     height: 600px;
 
     float: left;
+}
+#review-list{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    margin-top: 20px;
+    margin: auto;
+    width: 700px;
+    height: 200px;
+}
+
+#review-list img {
+    width: 100px;
+    height: 150px;
+    float: left;
+}
