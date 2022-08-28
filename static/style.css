@@ -72,7 +72,19 @@
     margin-right: 20px;
 }
 
-.list-group list-group-flush{
-    z-index: 1;
+#movie-poster {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin: auto;
+    width: 700px;
+    height: 700px;
 }
 
+#movie-poster img {
+    width: 400px;
+    height: 600px;
+
+    float: left;
