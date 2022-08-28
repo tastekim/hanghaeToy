@@ -26,7 +26,12 @@
 
 /* favorite 버튼 */
 .material-icons.color {
-    color: orangered;
+    color: hotpink;
+}
+
+.material-icons.color:hover {
+    color: red;
+    transition: 2s;
 }
 
 
@@ -52,3 +57,22 @@
     top: 0;
     z-index: 10000;
 }
+
+#search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+#search input {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.list-group list-group-flush{
+    z-index: 1;
+}
+
