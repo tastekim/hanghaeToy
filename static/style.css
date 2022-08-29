@@ -26,7 +26,12 @@
 
 /* favorite 버튼 */
 .material-icons.color {
-    color: orangered;
+    color: hotpink;
+}
+
+.material-icons.color:hover {
+    color: red;
+    transition: 2s;
 }
 
 
@@ -51,4 +56,61 @@
     left: 0;
     top: 0;
     z-index: 10000;
+}
+
+#search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+#search input {
+    width: 300px;
+    margin-right: 20px;
+}
+
+#movie-poster {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin: auto;
+    width: 700px;
+    height: 700px;
+}
+
+#movie-poster img {
+    width: 400px;
+    height: 600px;
+
+    float: left;
+}
+#review-list{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    margin-top: 20px;
+    margin: auto;
+    width: 700px;
+    height: 200px;
+}
+
+#review-list img {
+    width: 100px;
+    height: 150px;
+    float: left;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    color: black;
 }

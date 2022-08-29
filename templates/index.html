@@ -15,6 +15,16 @@
 <body>
 <div class="title">
     <h1>영화 리뷰 크롤링</h1>
+    <p>Today : <span>
+        <script>
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        let date = now.getDate();
+
+        document.write(year + "년 " + month + "월 " + date + "일");
+        </script>
+    </span></p>
     <!-- 찜 목록 버튼 -->
     <div class="favorite">
         <p>
@@ -27,6 +37,18 @@
                 <div class="card card-body" style="width: 300px;">
                     <!-- 찜 목록 -->
                     <ul id="favorite-list" class="list-group list-group-flush">
+                        <li>한산
+                            <button type="button" class="btn btn-outline-primary">❌</button>
+                        </li>
+                        <li>놉
+                            <button type="button" class="btn btn-outline-primary">❌</button>
+                        </li>
+                        <li>어벤져스
+                            <button type="button" class="btn btn-outline-primary">❌</button>
+                        </li>
+                        <li>범죄도시2
+                            <button type="button" class="btn btn-outline-primary">❌</button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -34,8 +56,8 @@
     </div>
 </div>
 <form id="search">
-    <input type="text">
-    <button type="submit">검색</button>
+    영화제목 : <input type="text" placeholder="영화 제목을 정확히 입력해주세요">
+    <button type="button" class="btn btn-primary">검색</button>
 </form>
 <div>
     <div id="movie-poster" class="card mb-3">
