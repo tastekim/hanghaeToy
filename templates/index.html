@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../static/style.css">
     <title>영화 리뷰 크롤링</title>
+
 </head>
 <body>
 <div class="title">
@@ -57,7 +58,7 @@
 </div>
 <form id="search">
     영화제목 : <input type="text" placeholder="영화 제목을 정확히 입력해주세요">
-    <button type="button" class="btn btn-primary">검색</button>
+    <button type="submit" class="btn btn-primary">검색</button>
 </form>
 <div>
     <div id="movie-poster" class="card mb-3">
@@ -93,4 +94,28 @@
     </ul>
 </div>
 </body>
+<script>
+    <!--  form의 id값을 셀렉트해서 DOM 제어  -->
+    const searchMovie = document.querySelector('#search');
+
+    function onSearchMovie(event) {
+        // submit 되면 새로고침 되는게 defalt여서 ajax 실행 전에 새로고침 되는걸 방지.
+        event.preventDefault();
+
+        let search = event.target[0].value;
+
+        $.ajax({
+            type: "POST",
+            url: "/movie",
+            data: {search_give: search},
+            success: function (response) {
+                alert(response["msg"]);
+                window.location.reload();
+            }
+        });
+
+    }
+    // form내용이 submit 되었을 때 POST 함수 실행
+    searchMovie.addEventListener('submit', onSearchMovie);
+</script>
 </html>
