@@ -5,6 +5,11 @@ from urllib import parse
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, jsonify
 
+# db 연결
+ca = certifi.where()
+client = MongoClient('mongodb+srv://test:sparta@cluster0.2jrn8.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile = ca)
+db = client.searchingMovie
+
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
 
 app = Flask(__name__)
@@ -46,6 +51,15 @@ def movie_post():
     a = re.sub(r'[^0-9]', '', rank)
     movie_rank = int(a) * 1/100
 
+    doc = {
+        'movie_title' : movie_title,
+        'movie_desc' : movie_desc,
+        'movie_image' : movie_image,
+        'movie_rank' : movie_rank
+    }
+
+    # 영화 정보 movie 컬렉션에 저장
+    db.movie.insert_one(doc)
 
     return jsonify({'msg' : '검색 완료!'})
 
