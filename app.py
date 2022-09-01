@@ -51,8 +51,13 @@ def movie_post():
 
 @app.route('/movie/favorite', methods=['POST'])
 def favorite_post():
-    search_receive = request.form['search_give']
+    favorite_receive = request.form['favorite_give']
     return jsonify({'msg' : '찜 POST 완료!'})
+
+@app.route('/movie/remove', methods=['POST'])
+def favorite_remove():
+    remove_receive = request.form['remove_give']
+    return jsonify({'msg' : '찜 삭제 POST 완료!'})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000)

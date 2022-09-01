@@ -1,5 +1,7 @@
 <!--  form의 id값을 셀렉트해서 DOM 제어  -->
 const searchMovie = document.querySelector('#search');
+const favorite = document.querySelector('#register-favorite')
+const removeFavorite = document.querySelector('#remove-favorite')
 
 $(document).ready(function () {
     showMovie();
@@ -22,6 +24,9 @@ function onSearchMovie(event) {
 
     let search = event.target[0].value;
 
+    // 검색한 영화 localStorage에 담아둔 후 favorite 기능에 사용
+    localStorage.setItem('search', search);
+
     $.ajax({
         type: "POST",
         url: "/movie",
@@ -33,6 +38,32 @@ function onSearchMovie(event) {
     });
 };
 
+function onFavoriteMovie() {
+    // 현재 검색한 영화 localStorage 에서 가져오기
+    favorite_movie = localStorage.getItem('search');
+
+    $.ajax({
+        type: "POST",
+        url: "/movie/favorite",
+        data: {favorite_give: favorite_movie},
+        success: function (response) {
+            alert(response["msg"]);
+        }
+    });
+};
+
+function onRemoveFavorite() {
+    $.ajax({
+        type: "POST",
+        url: "/movie/remove",
+        data: {remove_give: ""},
+        success: function (response) {
+            alert(response["msg"]);
+        }
+    });
+};
 
 // form내용이 submit 되었을 때 POST 함수 실행
 searchMovie.addEventListener('submit', onSearchMovie);
+favorite.addEventListener('click', onFavoriteMovie);
+removeFavorite.addEventListener('click', onRemoveFavorite);
