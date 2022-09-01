@@ -46,6 +46,7 @@ def movie_post():
     a = re.sub(r'[^0-9]', '', rank)
     movie_rank = int(a) * 1/100
 
+
     return jsonify({'msg' : '검색 완료!'})
 
 @app.route('/movie/favorite', methods=['POST'])

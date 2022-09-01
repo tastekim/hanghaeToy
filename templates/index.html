@@ -94,28 +94,46 @@
     </ul>
 </div>
 </body>
-<script>
-    <!--  form의 id값을 셀렉트해서 DOM 제어  -->
-    const searchMovie = document.querySelector('#search');
+<script src="../static/search.js"></script>
+<!--<script>-->
+<!--    &lt;!&ndash;  form의 id값을 셀렉트해서 DOM 제어  &ndash;&gt;-->
+<!--    const searchMovie = document.querySelector('#search');-->
 
-    function onSearchMovie(event) {
-        // submit 되면 새로고침 되는게 defalt여서 ajax 실행 전에 새로고침 되는걸 방지.
-        event.preventDefault();
+<!--    $(document).ready(function () {-->
+<!--        showMovie();-->
+<!--    });-->
 
-        let search = event.target[0].value;
+<!--    function showMovie() {-->
+<!--        $.ajax({-->
+<!--            type: "GET",-->
+<!--            url: "/movie",-->
+<!--            data: {},-->
+<!--            success: function (response) {-->
+<!--                alert(response["msg"]);-->
+<!--            }-->
+<!--        });-->
+<!--    };-->
 
-        $.ajax({
-            type: "POST",
-            url: "/movie",
-            data: {search_give: search},
-            success: function (response) {
-                alert(response["msg"]);
-                window.location.reload();
-            }
-        });
+<!--    function onSearchMovie(event) {-->
+<!--        // submit 되면 새로고침 되는게 defalt여서 ajax 실행 전에 새로고침 되는걸 방지.-->
+<!--        event.preventDefault();-->
 
-    }
-    // form내용이 submit 되었을 때 POST 함수 실행
-    searchMovie.addEventListener('submit', onSearchMovie);
-</script>
+<!--        let search = event.target[0].value;-->
+
+<!--        $.ajax({-->
+<!--            type: "POST",-->
+<!--            url: "/movie",-->
+<!--            data: {search_give: search},-->
+<!--            success: function (response) {-->
+<!--                alert(response["msg"]);-->
+<!--                window.location.reload();-->
+<!--            }-->
+<!--        });-->
+<!--    };-->
+
+
+
+<!--    // form내용이 submit 되었을 때 POST 함수 실행-->
+<!--    searchMovie.addEventListener('submit', onSearchMovie);-->
+<!--</script>-->
 </html>
