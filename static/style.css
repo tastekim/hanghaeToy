@@ -58,6 +58,13 @@
     z-index: 10000;
 }
 
+.favorite2 {
+    position: fixed;
+    right: 250px;
+    bottom: 250px;
+    z-index: 10000;
+}
+
 #search{
     display: flex;
     flex-direction: row;
