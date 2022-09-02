@@ -121,3 +121,11 @@ ul {
 li {
     color: black;
 }
+
+.hidden {
+  display: none;
+}
+
+#search {
+    visibility: hidden;
+}
