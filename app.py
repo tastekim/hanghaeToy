@@ -66,6 +66,14 @@ def movie_post():
 @app.route('/movie/favorite', methods=['POST'])
 def favorite_post():
     favorite_receive = request.form['favorite_give']
+    user_receive = request.form['user_give']
+
+    # 유저의 이름과 찜한 영화 묶어서 저장
+    doc = {
+        'user' : user_receive,
+        'favorite' : favorite_receive
+    }
+    db.favorite.insert_one(doc)
     return jsonify({'msg' : '찜 POST 완료!'})
 
 @app.route('/movie/remove', methods=['POST'])

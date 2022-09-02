@@ -41,11 +41,12 @@ function onSearchMovie(event) {
 function onFavoriteMovie() {
     // 현재 검색한 영화 localStorage 에서 가져오기
     favorite_movie = localStorage.getItem('search');
+    user_name = localStorage.getItem('user');
 
     $.ajax({
         type: "POST",
         url: "/movie/favorite",
-        data: {favorite_give: favorite_movie},
+        data: {favorite_give: favorite_movie, user_give: user_name},
         success: function (response) {
             alert(response["msg"]);
         }
