@@ -16,6 +16,13 @@
 <body>
 <div class="title">
     <h1>영화 리뷰 크롤링</h1>
+
+<!--로컬스토리지 로그인-->
+    <form id="login-form">
+        <input type="text" placeholder="이름을 입력하세요"/>
+    </form>
+    <h2 id="greeting" class="hidden"></h2>
+
     <p>Today : <span>
         <script>
         let now = new Date();
@@ -103,4 +110,5 @@
 </div>
 </body>
 <script src="../static/search.js"></script>
+<script src="../static/localstorage.js"></script>
 </html>
