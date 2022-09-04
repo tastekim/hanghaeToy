@@ -57,12 +57,25 @@ def movie_post():
     for i in date:
         date_list.append(i.text)
 
+    # 블로그 이미지
+    images = list(soup.findAll('span', 'thumb_fix'))
+    image_list = []
+    for i in images:
+        image_list.append(i.img['src'])
+
+    # 크롤링한 블로그 제목 갯수와 이미지 갯수 맞추기(블로그 리뷰 사진 중 첫번째 리뷰 사진들이 가끔 특이한 태그로 묶이는 경우가 있어서 이런 경우에는 첫번째 블로그 내용을 아예 빼는 걸로 했습니다.
+    if len(title_list) != len(image_list):
+        title_list.pop(0)
+        desc_list.pop(0)
+        date_list.pop(0)
+
     # 크롤링한 리뷰제목,디스크립션,작성날짜를 순서대로 db에 넣기위해 다시 리스팅
     i = 0
     total_list = []
     total_list.append(title_list)
     total_list.append(desc_list)
     total_list.append(date_list)
+    total_list.append(image_list)
 
     while i < len(total_list[0]):
         n = 0
@@ -71,12 +84,15 @@ def movie_post():
         review_desc = total_list[n][i]
         n += 1
         review_date = total_list[n][i]
+        n += 1
+        review_img = total_list[n][i]
         n = 0
         i += 1
         doc = [{
             'review_title': review_title,
             'review_desc': review_desc,
-            'review_date': review_date
+            'review_date': review_date,
+            'review_img': review_img
         }]
         db.reviews.insert_many(doc)
 
