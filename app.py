@@ -19,8 +19,9 @@ def home():
     return render_template('index.html')
 
 @app.route('/movie', methods=['GET'])
-def movie_get():
-    return jsonify({'msg' : 'GET 완료!'})
+def favorite_get():
+    favorite_list = list(db.favorite.find({}, {'_id': False}))
+    return jsonify({'favorites': favorite_list})
 
 @app.route('/movie', methods=['POST'])
 def movie_post():

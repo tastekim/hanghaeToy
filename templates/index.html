@@ -12,11 +12,31 @@
     <link rel="stylesheet" href="../static/style.css">
     <title>영화 리뷰 크롤링</title>
 
+    <script>
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/movie',
+                data: {},
+                success: function (response) {
+                    let rows = response['favorites']
+                    for(let i = 0; rows.length; i++){
+                        let title = rows[i]['favorite']
+
+                        let temp_html = ` <li>${title}
+                                            <button type="button" id="remove-favorite" class="btn btn-outline-primary">❌</button>
+                                        </li>`
+                        $('#favorite-list').append(temp_html)
+                    }
+                }
+            })
+        }
+    </script>
+
 </head>
 <body>
 <div class="title">
     <h1>영화 리뷰 크롤링</h1>
-
 <!--로컬스토리지 로그인-->
     <form id="login-form">
         <input type="text" placeholder="이름을 입력하세요"/>
@@ -36,7 +56,7 @@
     <!-- 찜 목록 버튼 -->
     <div class="favorite">
         <p>
-        <span class="material-icons color" type="button" data-bs-toggle="collapse"
+        <span onclick = listing() class="material-icons color" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapseWidthExample" aria-expanded="false"
               aria-controls="collapseWidthExample">favorite</span>
         </p>
