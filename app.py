@@ -64,6 +64,16 @@ def movie_post():
 
     return jsonify({'msg' : '검색 완료!'})
 
+@app.route("/search", methods=["GET"])
+def web_movies_get():
+    movie_list = list(db.movie.find({}, {'_id': False}))
+    return jsonify({'movies': movie_list})
+
+@app.route("/review", methods=["GET"])
+def web_reviews_get():
+    review_list = list(db.reviews.find({}, {'_id': False}))
+    return jsonify({'reviews': review_list})
+
 @app.route('/movie/favorite', methods=['POST'])
 def favorite_post():
     favorite_receive = request.form['favorite_give']

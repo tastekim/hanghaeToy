@@ -13,6 +13,82 @@
     <title>영화 리뷰 크롤링</title>
 
     <script>
+        $(document).ready(function () {
+            show_movie();
+        });
+
+        function show_movie() {
+            $('#movie-poster').empty()
+
+            $.ajax({
+                type: 'GET',
+                url: '/search',
+                data: {},
+                success: function (response)
+                {
+                    let rows = response['movies']
+
+                    for(let i = 0; i < rows.length; i++)
+                    {
+                        let title = rows[i]['movie_title']
+                        let desc = rows[i]['movie_desc']
+                        let rank = rows[i]['movie_rank']
+                        let img = rows[i]['movie_image']
+
+
+                        let temp_html = `<div class="col-md-4">
+                                            <!--영화 이미지-->
+                                            <img id="movie-img" src="${img}" class="img-fluid rounded-start" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <!--영화 제목-->
+                                                <h5 class="card-title">${title}</h5>
+                                                <!--영화 desc-->
+                                                <p class="card-text">${desc}</p>
+                                                <!--영화 평점-->
+                                                <p class="card-text">${rank}</p>
+                                            </div>
+                                        </div>`
+
+                        $('#movie-poster').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function show_review() {
+            $('#review-list').empty()
+
+            $.ajax({
+                type: 'GET',
+                url: '/review',
+                data: {},
+                success: function (response)
+                {
+                    let rows = response['reviews']
+
+                    for(let i = 0; i < rows.length; i++)
+                    {
+                        let review_title = rows[i]['review_title']
+                        let review_desc = rows[i]['review_desc']
+                        let review_date = rows[i]['review_date']
+                        let review_img = rows[i]['review_img']
+
+                        let temp_html = `<li>
+                                            <div class="review-card">
+                                                <img src="${review_img}">
+                                                <a href="">${review_title}</a><span>${review_date}</span>
+                                                <p>${review_desc}</p>
+                                            </div>
+                                        </li>`
+
+                        $('#review-list').append(temp_html)
+                    }
+                }
+            });
+        }
+
         function listing() {
             $.ajax({
                 type: 'GET',
@@ -84,7 +160,7 @@
     </div>
 </div>
 <form id="search">
-    영화제목 : <input type="text" placeholder="영화 제목을 정확히 입력해주세요">
+    영화제목 : <input id = "movie_name" type="text" placeholder="영화 제목을 정확히 입력해주세요">
     <button type="submit" class="btn btn-primary">검색</button>
 </form>
 <div>
@@ -102,8 +178,6 @@
                     <p class="card-text">${movie_desc}</p>
                     <!--영화 평점-->
                     <p class="card-text">${movie_rank}</p>
-                    <!--영화 개봉 날짜-->
-                    <p class="card-text"><small class="text-muted">${movie_date}</small></p>
                 </div>
             </div>
         </div>

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
-<<<<<<< HEAD
-=======
   <component name="Flask">
     <option name="enabled" value="true" />
   </component>
->>>>>>> 23493ad21d53bd13e912a2cf790208726a929354
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-<<<<<<< HEAD
-=======
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
@@ -21,5 +18,4 @@
       </list>
     </option>
   </component>
->>>>>>> 23493ad21d53bd13e912a2cf790208726a929354
 </module>
