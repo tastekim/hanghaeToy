@@ -1,6 +1,8 @@
 from pymongo import MongoClient
 import certifi, requests, re
 from urllib import parse
+import urllib.request
+import ssl
 
 from bs4 import BeautifulSoup
 from flask import Flask, render_template, request, jsonify
@@ -11,6 +13,8 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.2jrn8.mongodb.net/Clust
 db = client.searchingMovie
 
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+
+context = ssl._create_unverified_context()
 
 app = Flask(__name__)
 
@@ -27,11 +31,71 @@ def favorite_get():
 def movie_post():
     search_receive = request.form['search_give']
 
+    db.movie.drop()
+    db.reviews.drop()
+
     # 네이버 검색 url에 search_receive를 query문으로 변환 후 붙여주기
     url = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query='
     newUrl = url + parse.quote(search_receive)
-    data = requests.get(newUrl, headers=headers)
-    soup = BeautifulSoup(data.text, 'html.parser')
+    html = urllib.request.urlopen(newUrl, context=context).read()
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # 블로그 제목
+    title = soup.find_all(class_='api_txt_lines total_tit _cross_trigger')
+    title_list = []
+    for i in title:
+        title_list.append(i.text)
+
+    # # 디스크립션
+    desc = soup.find_all(class_='total_dsc _cross_trigger')
+    desc_list = []
+    for i in desc:
+        desc_list.append(i.text)
+
+    # 작성 날짜
+    date = soup.find_all(class_='sub_time sub_txt')
+    date_list = []
+    for i in date:
+        date_list.append(i.text)
+
+    # 블로그 이미지
+    images = list(soup.findAll('span', 'thumb_fix'))
+    image_list = []
+    for i in images:
+        image_list.append(i.img['src'])
+
+    # 크롤링한 블로그 제목 갯수와 이미지 갯수 맞추기(블로그 리뷰 사진 중 첫번째 리뷰 사진들이 가끔 특이한 태그로 묶이는 경우가 있어서 이런 경우에는 첫번째 블로그 내용을 아예 빼는 걸로 했습니다.
+    if len(title_list) != len(image_list):
+        title_list.pop(0)
+        desc_list.pop(0)
+        date_list.pop(0)
+
+    # 크롤링한 리뷰제목,디스크립션,작성날짜를 순서대로 db에 넣기위해 다시 리스팅
+    i = 0
+    total_list = []
+    total_list.append(title_list)
+    total_list.append(desc_list)
+    total_list.append(date_list)
+    total_list.append(image_list)
+
+    while i < len(total_list[0]):
+        n = 0
+        review_title = total_list[n][i]
+        n += 1
+        review_desc = total_list[n][i]
+        n += 1
+        review_date = total_list[n][i]
+        n += 1
+        review_img = total_list[n][i]
+        n = 0
+        i += 1
+        doc = [{
+            'review_title': review_title,
+            'review_desc': review_desc,
+            'review_date': review_date,
+            'review_img': review_img
+        }]
+        db.reviews.insert_many(doc)
 
     # 네이버 영화 검색 시 상단에 있는 영화정보 안 제목에 있는 '네이버 영화 정보 페이지' url 크롤링
     link = soup.find('strong', '_text')
